@@ -25,8 +25,18 @@ function init()
     noGround = [];
     ground = new Ground(0xffffff, WIDTH, HEIGHT, 10);
     
-    player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
+    player1 = new Player("player1", 0xffff00, new THREE.Vector3(0, 0, 1), 0);
     scene.add(player1.graphic);
+
+    ennemy1 = new Player("ennemy1", 0xff0000, new THREE.Vector3(0, 0, 1), 10);
+    ennemy1.graphic.position.y = 150;
+    ennemy1.graphic.position.x = 100;
+    scene.add(ennemy1.graphic);
+
+    ennemy2 = new Player("ennemy2", 0xff0000, new THREE.Vector3(0, 0, 1), 0);
+    ennemy2.graphic.position.y = -150;
+    ennemy2.graphic.position.x = -100;
+    scene.add(ennemy2.graphic);
 
     light1 = new Light("sun", 0xffffff, "0,0,340");
     scene.add(light1);
@@ -48,8 +58,8 @@ function Ground(color, size_x, size_y, nb_tile)
         for (y = minY; y <= maxY; y = y+sizeOfTileY){
 
             color = colors[Math.floor(Math.random()*colors.length)];
-
-
+            if (x == size_x / 2 && y == size_y / 2)
+                color = 0xff0000;
             if (0x000000 != color)
             {
                 tmpGround = new THREE.Mesh(
